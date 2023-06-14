@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "easyenchanting",
+  "version": "${version}",
+  "name": "easyenchanting",
+  "description": "",
+  "authors": ["DearXuan"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/easyenchanting/icon.png",
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "EasyEnchanting.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${minecraft_version}"
+  }
+}
