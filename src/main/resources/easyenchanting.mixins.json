@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.dearxuan.easyenchanting.Mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BowAndCrossbow.BowItemMixin",
+    "BowAndCrossbow.CrossbowItemMixin",
+    "BowEnchantmentToCrossbow.FlameEnchantmentMixin",
+    "BowEnchantmentToCrossbow.PowerEnchantmentMixin",
+    "BowEnchantmentToCrossbow.PunchEnchantmentMixin",
+    "Cost.AnvilScreenHandlerMixin",
+    "EnchantingConflict.DamageEnchantmentMixin",
+    "EnchantingConflict.DepthStriderEnchantmentMixin",
+    "EnchantingConflict.FrostWalkerEnchantmentMixin",
+    "EnchantingConflict.InfinityEnchantmentMixin",
+    "EnchantingConflict.MultishotEnchantmentMixin",
+    "EnchantingConflict.PiercingEnchantmentMixin",
+    "EnchantingConflict.ProtectionEnchantmentMixin",
+    "EnchantingConflict.RiptideEnchantmentMixin",
+    "Mending.ItemStackMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

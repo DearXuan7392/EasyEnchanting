@@ -9,11 +9,16 @@
   "license": "MIT",
   "icon": "assets/easyenchanting/icon.png",
   "environment": "*",
-  "entrypoints": {},
+  "entrypoints": {
+    "main": [
+
+    ]
+  },
   "mixins": [
-    "EasyEnchanting.mixins.json"
+    "easyenchanting.mixins.json"
   ],
   "depends": {
-    "minecraft": "${minecraft_version}"
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "1.20.x"
   }
 }

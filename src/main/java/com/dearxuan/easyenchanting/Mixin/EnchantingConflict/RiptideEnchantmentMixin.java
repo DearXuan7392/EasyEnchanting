@@ -1,4 +1,4 @@
-package com.dearxuan.easyenchanting.Mixin.Conflict;
+package com.dearxuan.easyenchanting.Mixin.EnchantingConflict;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -19,6 +19,7 @@ public class RiptideEnchantmentMixin extends Enchantment {
     /**
      * 激流 不再与 忠诚, 引雷 冲突
      */
+    @Override
     public boolean canAccept(Enchantment other) {
         return super.canAccept(other);
     }

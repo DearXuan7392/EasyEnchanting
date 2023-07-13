@@ -8,9 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
@@ -25,13 +23,17 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(CrossbowItem.class)
-public abstract class CrossbowItemMixin {
+public abstract class CrossbowItemMixin extends RangedWeaponItem  implements Vanishable {
 
     @Shadow
     private boolean charged;
 
     @Shadow
     private boolean loaded;
+
+    public CrossbowItemMixin(Settings settings) {
+        super(settings);
+    }
 
     @Shadow
     private static boolean loadProjectile(LivingEntity shooter, ItemStack crossbow, ItemStack projectile, boolean simulated, boolean creative){
@@ -50,33 +52,47 @@ public abstract class CrossbowItemMixin {
     }
 
 
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
     private static boolean loadProjectiles(LivingEntity shooter, ItemStack crossbow) {
         int i = EnchantmentHelper.getLevel(Enchantments.MULTISHOT, crossbow);
         int j = i == 0 ? 1 : 3;
-        boolean bl = shooter instanceof PlayerEntity && (((PlayerEntity)shooter).getAbilities().creativeMode || EnchantmentHelper.getLevel(Enchantments.INFINITY, crossbow) > 0 );
+        boolean bl = shooter instanceof PlayerEntity && (((PlayerEntity)shooter).getAbilities().creativeMode || EnchantmentHelper.getLevel(Enchantments.INFINITY, crossbow) > 0);
         ItemStack itemStack = shooter.getProjectileType(crossbow);
         ItemStack itemStack2 = itemStack.copy();
-        for (int k = 0; k < j; ++k) {
+
+        for(int k = 0; k < j; ++k) {
             if (k > 0) {
                 itemStack = itemStack2.copy();
             }
+
             if (itemStack.isEmpty() && bl) {
                 itemStack = new ItemStack(Items.ARROW);
                 itemStack2 = itemStack.copy();
             }
-            if (loadProjectile(shooter, crossbow, itemStack, k > 0, bl)) continue;
-            return false;
+
+            if (!loadProjectile(shooter, crossbow, itemStack, k > 0, bl)) {
+                return false;
+            }
         }
+
         return true;
     }
 
 
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
     private static void shoot(World world, LivingEntity shooter, Hand hand, ItemStack crossbow, ItemStack projectile, float soundPitch, boolean creative, float speed, float divergence, float simulated) {
-        ProjectileEntity projectileEntity;
-
         if (world.isClient) {
             return;
         }
+        ProjectileEntity projectileEntity;
         boolean bl = projectile.isOf(Items.FIREWORK_ROCKET);
         if (bl) {
             projectileEntity = new FireworkRocketEntity(world, projectile, shooter, shooter.getX(), shooter.getEyeY() - (double)0.15f, shooter.getZ(), true);
@@ -86,6 +102,7 @@ public abstract class CrossbowItemMixin {
             if (creative || simulated != 0.0f || EnchantmentHelper.getLevel(Enchantments.INFINITY, crossbow) > 0) {
                 persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
             }
+            // 计算附魔伤害
             int k, j;
             if ((j = EnchantmentHelper.getLevel(Enchantments.POWER, crossbow)) > 0) {
                 persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + (double)j * 0.5 + 0.5);
@@ -112,6 +129,11 @@ public abstract class CrossbowItemMixin {
         world.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0f, soundPitch);
     }
 
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if (CrossbowItem.isCharged(itemStack)) {

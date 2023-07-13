@@ -1,4 +1,4 @@
-package com.dearxuan.easyenchanting.Mixin.Conflict;
+package com.dearxuan.easyenchanting.Mixin.EnchantingConflict;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -19,6 +19,7 @@ public class PiercingEnchantmentMixin extends Enchantment {
     /**
      * 穿透 与 多重射击 不再冲突
      */
+    @Override
     public boolean canAccept(Enchantment other) {
         return super.canAccept(other);
     }

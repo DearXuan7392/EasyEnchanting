@@ -1,4 +1,4 @@
-package com.dearxuan.easyenchanting.Mixin.Conflict;
+package com.dearxuan.easyenchanting.Mixin.EnchantingConflict;
 
 import net.minecraft.enchantment.DepthStriderEnchantment;
 import net.minecraft.enchantment.Enchantment;
@@ -19,6 +19,7 @@ public class DepthStriderEnchantmentMixin extends Enchantment{
     /**
      * 深海探索者 与 冰霜行者 不再冲突
      */
+    @Override
     public boolean canAccept(Enchantment other) {
         return super.canAccept(other);
     }
