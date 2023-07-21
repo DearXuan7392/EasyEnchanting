@@ -8,3 +8,7 @@ This Mod resolve some enchantments conflict and rewrite some enchantment methods
 4. Enchantments of the bow are still work on crossbow.
 5. The tool with Mending will directly deduct XP instead of durability.
 6. The max cost in anvil is 39.
+
+## Migration
+
+Easy Enchanting has been integrated into Easy Tweak. If you only need certain features, go to [Easy Tweak](https://modrinth.com/mod/easy-tweak) 

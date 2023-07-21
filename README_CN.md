@@ -8,3 +8,5 @@
 4. 弓的附魔对弩有效.
 5. 对于附魔经验修补的工具, 将会直接扣除经验值而不是耐久.
 6. 附魔的最大花费是39.
+
+本 MOD 已迁移至 Easy Tweak, 如果你只想要启用部分功能, 请前往[Easy Tweak](https://modrinth.com/mod/easy-tweak)

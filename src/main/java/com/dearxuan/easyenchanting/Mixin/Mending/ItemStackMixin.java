@@ -62,7 +62,6 @@ public abstract class ItemStackMixin implements FabricItemStack {
             if(player != null){
                 // 进行经验修补
                 if(EnchantmentHelper.getLevel(Enchantments.MENDING, _this) > 0){
-                    LOGGER.error(String.valueOf(EnchantmentHelper.getLevel(Enchantments.MENDING, _this)));
                     // 如果经验不足, 则不修复
                     actualRepair = Math.min(i, player.totalExperience * 2);
                     // 实际修复值 > 0
